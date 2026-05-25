@@ -33,8 +33,8 @@ const LIGHT = {
 const AppCtx = createContext(null);
 const useApp = () => useContext(AppCtx);
 
-const ADMIN_EMAIL = "admin@dayebudget.com";
-const ADMIN_PASS = "Admin123!";
+const ADMIN_EMAIL = "Shakurdaye3@gmail.com";
+const ADMIN_PASS = "Admin123!"; // Set your password in Vercel env vars
 
 function AppProvider({ children }) {
   const [dark, setDark] = useState(() => storage.get("theme", true));
@@ -123,7 +123,7 @@ function AppProvider({ children }) {
     setExpenses([]); setBudgetCats([]); setIncome(""); setSavingsGoals([]); setBills([]); setDebts([]);
   };
 
-  const isAdmin = user?.isAdmin || user?.email === ADMIN_EMAIL;
+  const isAdmin = user?.isAdmin || user?.email?.toLowerCase() === ADMIN_EMAIL.toLowerCase();
 
   return (
     <AppCtx.Provider value={{ C, FONT, HEAD, dark, setDark, user, login, logout, isAdmin, expenses, setExpenses, budgetCats, setBudgetCats, income, setIncome, savingsGoals, setSavingsGoals, bills, setBills, debts, setDebts, featureUpdates, setFeatureUpdates, adminUsers, setAdminUsers, onboarded, setOnboarded, subscription, setSubscription, alerts, setAlerts }}>
@@ -1415,17 +1415,16 @@ function AIPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method:"POST",
         headers:{ "Content-Type":"application/json" },
         body:JSON.stringify({
-          model:"claude-sonnet-4-20250514", max_tokens:700,
-          system:`You are DayeBudget AI, a friendly, knowledgeable, and honest personal finance assistant. Give concise (2-4 paragraphs), practical, encouraging advice. Use emojis occasionally. Be realistic — give real numbers and strategies. NEVER help with fraud, scams, identity theft, illegal activity, or anything harmful. If asked, refuse politely and redirect to legal financial advice. ${buildContext()} Always end investment-related answers with: "⚠️ AI advice is educational only — not professional financial advice."`,
           messages:newMsgs.map(m=>({ role:m.role, content:m.content })),
+          context:buildContext(),
         }),
       });
       const data = await res.json();
-      setMessages([...newMsgs, { role:"assistant", content:data.content?.[0]?.text || "I had trouble connecting. Please try again!" }]);
+      setMessages([...newMsgs, { role:"assistant", content:data.content || "I had trouble connecting. Please try again!" }]);
     } catch {
       setMessages([...newMsgs, { role:"assistant", content:"Connection issue — please try again.\n\nQuick tip: Start by listing all your monthly expenses and compare to your income. That's the foundation of any good budget! 💡" }]);
     }
@@ -1772,17 +1771,16 @@ function LearnPage() {
   const handleSimplify = async (lesson) => {
     setSimplifyLoading(true); setSimplify(true);
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method:"POST",
         headers:{ "Content-Type":"application/json" },
         body:JSON.stringify({
-          model:"claude-sonnet-4-20250514", max_tokens:400,
-          system:"Explain financial concepts in the simplest possible terms for a complete beginner. Use short sentences, simple words, and a friendly tone. No jargon. Max 150 words.",
-          messages:[{ role:"user", content:`Explain "${lesson.title}" in the simplest terms possible for a beginner who knows nothing about personal finance.` }],
+          messages:[{ role:"user", content:`Explain "${lesson.title}" in the simplest possible terms for a complete beginner. Use short sentences, simple words, a friendly tone. No jargon. Max 150 words.` }],
+          context:"You are a friendly financial educator. Keep explanations very simple.",
         }),
       });
       const data = await res.json();
-      setSimplifyText(data.content?.[0]?.text || "");
+      setSimplifyText(data.content || "");
     } catch { setSimplifyText("Could not load simplified explanation. Please try again."); }
     setSimplifyLoading(false);
   };
