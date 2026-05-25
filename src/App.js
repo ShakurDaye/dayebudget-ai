@@ -24,8 +24,8 @@ const C = {
   purple: '#8B5CF6', pink: '#EC4899', teal: '#14B8A6',
   orange: '#F97316',
 };
-const FONT = `'DM Sans', sans-serif`;
-const HEAD = `'Syne', sans-serif`;
+const FONT = "'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+const HEAD = "'Syne', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
 
 // ─── MOCK DATA ────────────────────────────────────────────────────────────────
 const USER = { name: "Alex Johnson", email: "alex.johnson@email.com", username: "alexj", isPremium: true, avatar: "AJ", plan: "Premium" };
@@ -132,14 +132,14 @@ function useIsMobile() {
 const S = {
   card: { background: C.card, borderRadius: 16, padding: 20, border: `1px solid ${C.border}` },
   card2: { background: C.card2, borderRadius: 12, padding: 16, border: `1px solid ${C.border}` },
-  btn: { background: C.red, color: '#fff', border: 'none', borderRadius: 10, padding: '12px 24px', cursor: 'pointer', fontWeight: 600, fontSize: 14, fontFamily: FONT },
-  btnSm: { background: C.red, color: '#fff', border: 'none', borderRadius: 8, padding: '8px 16px', cursor: 'pointer', fontWeight: 600, fontSize: 13, fontFamily: FONT },
-  btnGhost: { background: 'transparent', color: C.text2, border: `1px solid ${C.border2}`, borderRadius: 10, padding: '10px 18px', cursor: 'pointer', fontWeight: 500, fontSize: 13, fontFamily: FONT },
+  btn: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: C.red, color: '#fff', border: 'none', borderRadius: 10, padding: '13px 24px', cursor: 'pointer', fontWeight: 600, fontSize: 15, fontFamily: FONT, minHeight: 48, WebkitAppearance: 'none', touchAction: 'manipulation' },
+  btnSm: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: C.red, color: '#fff', border: 'none', borderRadius: 8, padding: '10px 16px', cursor: 'pointer', fontWeight: 600, fontSize: 14, fontFamily: FONT, minHeight: 44, WebkitAppearance: 'none', touchAction: 'manipulation' },
+  btnGhost: { display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'transparent', color: C.text2, border: `1px solid ${C.border2}`, borderRadius: 10, padding: '11px 18px', cursor: 'pointer', fontWeight: 500, fontSize: 14, fontFamily: FONT, minHeight: 44, WebkitAppearance: 'none', touchAction: 'manipulation' },
   input: { background: C.card2, border: `1px solid ${C.border2}`, borderRadius: 10, padding: '12px 14px', color: C.text, fontSize: 14, width: '100%', outline: 'none', fontFamily: FONT },
   label: { color: C.text2, fontSize: 11, fontWeight: 600, display: 'block', marginBottom: 6, textTransform: 'uppercase', letterSpacing: '0.07em' },
   h1: { fontFamily: HEAD, fontSize: 24, fontWeight: 700, color: C.text, margin: 0 },
   h2: { fontFamily: HEAD, fontSize: 20, fontWeight: 700, color: C.text, margin: 0 },
-  page: { padding: '28px 24px', minHeight: '100vh', background: C.bg },
+  page: { padding: '28px 24px', minHeight: '100dvh', background: C.bg },
 };
 
 // ─── PRIMITIVE COMPONENTS ─────────────────────────────────────────────────────
@@ -250,7 +250,7 @@ const BOTTOM_NAV = [
 // ─── SIDEBAR ──────────────────────────────────────────────────────────────────
 function Sidebar({ page, setPage, onLogout, onAdmin }) {
   return (
-    <div style={{ width: 240, minHeight: '100vh', background: C.bg2, borderRight: `1px solid ${C.border}`, display: 'flex', flexDirection: 'column', flexShrink: 0, position: 'sticky', top: 0 }}>
+    <div style={{ width: 240, minHeight: '100dvh', background: C.bg2, borderRight: `1px solid ${C.border}`, display: 'flex', flexDirection: 'column', flexShrink: 0, position: 'sticky', top: 0 }}>
       <div style={{ padding: '24px 20px', borderBottom: `1px solid ${C.border}` }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div style={{ width: 36, height: 36, borderRadius: 10, background: C.red, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -305,7 +305,7 @@ function Sidebar({ page, setPage, onLogout, onAdmin }) {
 
 function BottomNav({ page, setPage }) {
   return (
-    <div style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: C.card, borderTop: `1px solid ${C.border}`, display: 'flex', zIndex: 100, paddingBottom: 'env(safe-area-inset-bottom)' }}>
+    <div className="bottom-safe" style={{ position: 'fixed', bottom: 0, left: 0, right: 0, background: C.card, borderTop: `1px solid ${C.border}`, display: 'flex', zIndex: 100, paddingBottom: 12 }}>
       {BOTTOM_NAV.map(({ id, label, icon: Icon }) => {
         const active = page === id;
         return (
@@ -355,7 +355,7 @@ function LandingPage({ goSignIn, goSignUp }) {
   ];
 
   return (
-    <div style={{ background: C.bg, fontFamily: FONT, color: C.text, minHeight: '100vh' }}>
+    <div style={{ background: C.bg, fontFamily: FONT, color: C.text, minHeight: '100dvh' }}>
       {/* NAV */}
       <nav style={{ padding: '18px 32px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderBottom: `1px solid ${C.border}`, position: 'sticky', top: 0, background: C.bg, zIndex: 50 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -537,7 +537,7 @@ function SignInPage({ goSignUp, onSignIn }) {
   };
 
   return (
-    <div style={{ background: C.bg, minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, fontFamily: FONT }}>
+    <div style={{ background: C.bg, minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, fontFamily: FONT }}>
       <div style={{ width: '100%', maxWidth: 420 }}>
         <div style={{ textAlign: 'center', marginBottom: 36 }}>
           <div style={{ width: 56, height: 56, borderRadius: 16, background: C.red, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px' }}><DollarSign size={30} color="#fff" /></div>
@@ -620,7 +620,7 @@ function SignUpPage({ goSignIn, onSignIn }) {
   };
 
   return (
-    <div style={{ background: C.bg, minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, fontFamily: FONT }}>
+    <div style={{ background: C.bg, minHeight: '100dvh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 20, fontFamily: FONT }}>
       <div style={{ width: '100%', maxWidth: 460 }}>
         <div style={{ textAlign: 'center', marginBottom: 28 }}>
           <div style={{ width: 52, height: 52, borderRadius: 14, background: C.red, display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 14px' }}><DollarSign size={28} color="#fff" /></div>
@@ -1113,7 +1113,7 @@ function AIPage() {
   }, [messages, loading]);
 
   return (
-    <div style={{ ...S.page, display: 'flex', flexDirection: 'column', height: '100vh', padding: 0 }}>
+    <div style={{ ...S.page, display: 'flex', flexDirection: 'column', height: '100dvh', padding: 0 }}>
       {/* HEADER */}
       <div style={{ padding: '20px 24px 16px', borderBottom: `1px solid ${C.border}`, background: C.bg2 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -1603,7 +1603,7 @@ function AppShell({ onLogout }) {
   const [showAdmin, setShowAdmin] = useState(false);
   const isMobile = useIsMobile();
 
-  if (showAdmin) return <div style={{ background: C.bg, minHeight: '100vh', fontFamily: FONT, color: C.text }}><AdminPage onBack={() => setShowAdmin(false)} /></div>;
+  if (showAdmin) return <div style={{ background: C.bg, minHeight: '100dvh', fontFamily: FONT, color: C.text }}><AdminPage onBack={() => setShowAdmin(false)} /></div>;
 
   const renderPage = () => {
     switch (page) {
@@ -1622,7 +1622,7 @@ function AppShell({ onLogout }) {
   };
 
   return (
-    <div style={{ background: C.bg, minHeight: '100vh', fontFamily: FONT, color: C.text, display: 'flex', flexDirection: 'column', height: '100vh' }}>
+    <div style={{ background: C.bg, minHeight: '100dvh', fontFamily: FONT, color: C.text, display: 'flex', flexDirection: 'column', height: '100dvh' }}>
       {!isMobile && (
         <div style={{ display: 'flex', flex: 1, overflow: 'hidden' }}>
           <Sidebar page={page} setPage={setPage} onLogout={onLogout} onAdmin={() => setShowAdmin(true)} />
@@ -1647,15 +1647,27 @@ export default function DayeBudgetAI() {
 
   const globalCSS = `
     @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Syne:wght@600;700;800&display=swap');
-    *, *::before, *::after { box-sizing: border-box; }
-    body { margin: 0; padding: 0; }
-    input, select, textarea, button { font-family: 'DM Sans', sans-serif; }
-    ::-webkit-scrollbar { width: 5px; height: 5px; }
-    ::-webkit-scrollbar-track { background: #0F0F0F; }
-    ::-webkit-scrollbar-thumb { background: #2E2E2E; border-radius: 3px; }
-    input::placeholder, textarea::placeholder { color: #4A4A4A; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-text-size-adjust: 100%; -moz-text-size-adjust: 100%; text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #090909; color: #fff; overflow-x: hidden; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+    input, select, textarea, button { font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+    input[type="text"], input[type="email"], input[type="password"], input[type="number"], select, textarea { font-size: 16px !important; -webkit-appearance: none; -moz-appearance: none; appearance: none; }
+    input[type="number"]::-webkit-inner-spin-button, input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type="checkbox"] { width: 16px; height: 16px; accent-color: #E5041C; flex-shrink: 0; }
+    input::placeholder, textarea::placeholder { color: #4A4A4A; opacity: 1; }
+    button { cursor: pointer; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
     * { -webkit-tap-highlight-color: transparent; }
-    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    ::-webkit-scrollbar { width: 4px; height: 4px; }
+    ::-webkit-scrollbar-track { background: #0F0F0F; }
+    ::-webkit-scrollbar-thumb { background: #2E2E2E; border-radius: 2px; }
+    img { max-width: 100%; height: auto; display: block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    @keyframes bounce { 0%,60%,100% { transform: translateY(0); } 30% { transform: translateY(-5px); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+    .page-enter { animation: fadeIn 0.2s ease; }
+    @media (max-width: 768px) { .desktop-sidebar { display: none !important; } }
+    @media (min-width: 769px) { .mobile-nav { display: none !important; } .mobile-header { display: none !important; } }
+    @supports (padding: max(0px)) { .bottom-safe { padding-bottom: max(12px, env(safe-area-inset-bottom)) !important; } }
   `;
 
   if (isLoggedIn) {
