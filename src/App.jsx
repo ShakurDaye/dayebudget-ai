@@ -157,6 +157,9 @@ const GLOBAL_CSS = `
   @media (max-width: 768px) { .desktop-sidebar { display: none !important; } }
   @media (min-width: 769px) { .mobile-nav { display: none !important; } .mobile-header { display: none !important; } }
   @supports (padding: max(0px)) { .bottom-safe { padding-bottom: max(14px, env(safe-area-inset-bottom)) !important; } }
+  html, body { width: 100%; min-height: 100dvh; overflow-x: hidden; }
+  #root { width: 100%; min-height: 100dvh; display: flex; flex-direction: column; }
+  @media (min-width: 1400px) { .page-content { max-width: 1400px; margin: 0 auto; width: 100%; } }
   .hover-btn:hover { opacity: 0.88; }
   .hover-row:hover { background: rgba(255,255,255,0.03); }
   select option { background: #1C1C1C; color: #fff; }
@@ -176,7 +179,7 @@ function useStyles() {
     label: { color:C.text2, fontSize:11, fontWeight:600, display:"block", marginBottom:6, textTransform:"uppercase", letterSpacing:"0.07em" },
     h1: { fontFamily:"'Syne', sans-serif", fontSize:22, fontWeight:700, color:C.text },
     h2: { fontFamily:"'Syne', sans-serif", fontSize:18, fontWeight:700, color:C.text },
-    page: { padding:"20px 16px", minHeight:"100dvh", background:C.bg, maxWidth:"100%", overflowX:"hidden" },
+    page: { padding:"20px 16px", minHeight:"100dvh", background:C.bg, width:"100%", maxWidth:"100%", overflowX:"hidden" },
   };
 }
 
@@ -348,7 +351,7 @@ const BOTTOM_NAV = [
 function Sidebar({ page, setPage }) {
   const { C, FONT, user, logout, isAdmin, dark, setDark, alerts } = useApp();
   return (
-    <div className="desktop-sidebar" style={{ width:232, height:"100dvh", background:C.bg2, borderRight:`1px solid ${C.border}`, display:"flex", flexDirection:"column", flexShrink:0, position:"sticky", top:0, overflowY:"auto" }}>
+    <div className="desktop-sidebar" style={{ width:236, minWidth:236, height:"100dvh", background:C.bg2, borderRight:`1px solid ${C.border}`, display:"flex", flexDirection:"column", flexShrink:0, position:"sticky", top:0, overflowY:"auto" }}>
       <div style={{ padding:"20px 18px", borderBottom:`1px solid ${C.border}`, flexShrink:0 }}>
         <div style={{ display:"flex", alignItems:"center", gap:10 }}>
           <div style={{ width:34, height:34, borderRadius:9, background:C.red, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><DollarSign size={18} color="#fff" /></div>
@@ -479,8 +482,8 @@ function OnboardingFlow({ onDone }) {
   ];
 
   return (
-    <div style={{ background:C.bg, minHeight:"100dvh", display:"flex", alignItems:"center", justifyContent:"center", padding:20, fontFamily:FONT }}>
-      <div style={{ width:"100%", maxWidth:460 }}>
+    <div style={{ background:C.bg, minHeight:"100dvh", width:"100%", display:"flex", alignItems:"center", justifyContent:"center", padding:20, fontFamily:FONT }}>
+      <div style={{ width:"100%", maxWidth:480 }}>
         <div style={{ textAlign:"center", marginBottom:28 }}>
           <div style={{ width:52, height:52, borderRadius:14, background:C.red, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 14px" }}><DollarSign size={26} color="#fff" /></div>
           <h1 style={{ fontFamily:HEAD, fontSize:24, fontWeight:700, color:C.text, marginBottom:4 }}>Welcome, {user?.name?.split(" ")[0] || "there"}!</h1>
@@ -535,8 +538,8 @@ function SignInPage({ goSignUp, goLanding }) {
   };
 
   return (
-    <div style={{ background:C.bg, minHeight:"100dvh", display:"flex", alignItems:"center", justifyContent:"center", padding:20, fontFamily:FONT }}>
-      <div style={{ width:"100%", maxWidth:420 }}>
+    <div style={{ background:C.bg, minHeight:"100dvh", width:"100%", display:"flex", alignItems:"center", justifyContent:"center", padding:20, fontFamily:FONT }}>
+      <div style={{ width:"100%", maxWidth:440 }}>
         <div style={{ textAlign:"center", marginBottom:28 }}>
           <div style={{ width:52, height:52, borderRadius:14, background:C.red, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 14px" }}><DollarSign size={26} color="#fff" /></div>
           <h1 style={{ fontFamily:HEAD, fontSize:26, fontWeight:700, color:C.text, marginBottom:5 }}>Welcome Back</h1>
@@ -612,8 +615,8 @@ function SignUpPage({ goSignIn }) {
   };
 
   return (
-    <div style={{ background:C.bg, minHeight:"100dvh", display:"flex", alignItems:"center", justifyContent:"center", padding:20, fontFamily:FONT }}>
-      <div style={{ width:"100%", maxWidth:460 }}>
+    <div style={{ background:C.bg, minHeight:"100dvh", width:"100%", display:"flex", alignItems:"center", justifyContent:"center", padding:20, fontFamily:FONT }}>
+      <div style={{ width:"100%", maxWidth:480 }}>
         <div style={{ textAlign:"center", marginBottom:24 }}>
           <div style={{ width:50, height:50, borderRadius:14, background:C.red, display:"flex", alignItems:"center", justifyContent:"center", margin:"0 auto 12px" }}><DollarSign size={25} color="#fff" /></div>
           <h1 style={{ fontFamily:HEAD, fontSize:24, fontWeight:700, color:C.text, marginBottom:4 }}>Create Your Account</h1>
@@ -2237,7 +2240,7 @@ function LandingPage({ goSignIn, goSignUp }) {
     { icon:Shield, label:"Private & Secure", desc:"Your data stays private and is never sold to advertisers." },
   ];
   return (
-    <div style={{ background:C.bg, fontFamily:FONT, color:C.text, minHeight:"100dvh", overflowX:"hidden" }}>
+    <div style={{ background:C.bg, fontFamily:FONT, color:C.text, minHeight:"100dvh", overflowX:"hidden", width:"100%" }}>
       <nav style={{ padding:"15px 20px", display:"flex", justifyContent:"space-between", alignItems:"center", borderBottom:`1px solid ${C.border}`, position:"sticky", top:0, background:C.bg, zIndex:50, gap:12 }}>
         <div style={{ display:"flex", alignItems:"center", gap:9 }}>
           <div style={{ width:34, height:34, borderRadius:9, background:C.red, display:"flex", alignItems:"center", justifyContent:"center", flexShrink:0 }}><DollarSign size={18} color="#fff" /></div>
@@ -2379,7 +2382,7 @@ function AppShell() {
   };
 
   if (isMobile) return (
-    <div style={{ background:C.bg, display:"flex", flexDirection:"column", height:"100dvh", overflow:"hidden", color:C.text }}>
+    <div style={{ background:C.bg, display:"flex", flexDirection:"column", height:"100dvh", overflow:"hidden", color:C.text, width:"100%" }}>
       <MobileHeader page={page} setPage={setPage} />
       <div style={{ flex:1, overflowY:"auto", overflowX:"hidden", WebkitOverflowScrolling:"touch", paddingBottom:76 }}>
         {renderPage()}
@@ -2389,9 +2392,9 @@ function AppShell() {
   );
 
   return (
-    <div style={{ background:C.bg, display:"flex", height:"100dvh", overflow:"hidden", color:C.text }}>
+    <div style={{ background:C.bg, display:"flex", height:"100dvh", overflow:"hidden", color:C.text, width:"100%" }}>
       <Sidebar page={page} setPage={setPage} />
-      <div style={{ flex:1, overflowY:"auto", overflowX:"hidden" }}>
+      <div style={{ flex:1, overflowY:"auto", overflowX:"hidden", width:"100%", minWidth:0 }}>
         {page === "ai" ? (
           <div style={{ display:"flex", flexDirection:"column", height:"100dvh" }}>
             {renderPage()}
@@ -2410,11 +2413,11 @@ function AuthGate() {
   if (user) return <AppShell />;
 
   return (
-    <>
+    <div style={{ width:"100%", minHeight:"100dvh" }}>
       {view === "landing" && <LandingPage goSignIn={() => setView("signin")} goSignUp={() => setView("signup")} />}
       {view === "signin" && <SignInPage goSignUp={() => setView("signup")} goLanding={() => setView("landing")} />}
       {view === "signup" && <SignUpPage goSignIn={() => setView("signin")} />}
-    </>
+    </div>
   );
 }
 
